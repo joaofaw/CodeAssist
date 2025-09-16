@@ -9,38 +9,71 @@ import androidx.core.view.WindowCompat;
 
 import com.tyron.code.ui.project.ProjectManagerFragment;
 
+// Imports adicionados para a nova funcionalidade
+import android.content.Intent;
+import android.widget.Button;
+
+
 public class MainActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
-        if (getSupportFragmentManager().findFragmentByTag(ProjectManagerFragment.TAG) == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ProjectManagerFragment(),
-                             ProjectManagerFragment.TAG)
-                    .commit();
-        }
-    }
 
     @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
+        protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                        setContentView(R.layout.main);
+                                WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
-    @Override
-    public boolean onKeyShortcut(int keyCode, KeyEvent event) {
-        return super.onKeyShortcut(keyCode, event);
-    }
+                                        //=============== INÍCIO DO CÓDIGO ADICIONADO ===============//
+                                                // Lógica para o botão que leva à tela de geração por IA.
+                                                        try {
+                                                                    // 1. Encontra o botão no layout usando o ID que definimos.
+                                                                                Button goToIaButton = findViewById(R.id.go_to_ia_generator_button);
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
-    }
+                                                                                            // 2. Verifica se o botão realmente existe no layout atual para evitar erros.
+                                                                                                        if (goToIaButton != null) {
+                                                                                                                        // 3. Define uma ação para quando o botão for clicado.
+                                                                                                                                        goToIaButton.setOnClickListener(v -> {
+                                                                                                                                                            // 4. Cria uma "intenção" para navegar da tela atual (MainActivity)
+                                                                                                                                                                                //    para a nossa nova tela (IaGeneratorActivity).
+                                                                                                                                                                                                    Intent intent = new Intent(MainActivity.this, IaGeneratorActivity.class);
+                                                                                                                                                                                                                        
+                                                                                                                                                                                                                                            // 5. Executa a navegação.
+                                                                                                                                                                                                                                                                startActivity(intent);
+                                                                                                                                                                                                                                                                                });
+                                                                                                                                                                                                                                                                                            }
+                                                                                                                                                                                                                                                                                                    } catch (Exception e) {
+                                                                                                                                                                                                                                                                                                                // Medida de segurança: Se, por algum motivo, o botão não for encontrado,
+                                                                                                                                                                                                                                                                                                                            // o app não irá quebrar. A exceção é capturada e ignorada.
+                                                                                                                                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                                                                                                                                            //================= FIM DO CÓDIGO ADICIONADO =================//
 
-    @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
-        return super.onKeyUp(keyCode, event);
-    }
-}
+
+                                                                                                                                                                                                                                                                                                                                                    // Código original do app para carregar o gerenciador de projetos.
+                                                                                                                                                                                                                                                                                                                                                            if (getSupportFragmentManager().findFragmentByTag(ProjectManagerFragment.TAG) == null) {
+                                                                                                                                                                                                                                                                                                                                                                        getSupportFragmentManager().beginTransaction()
+                                                                                                                                                                                                                                                                                                                                                                                            .replace(R.id.fragment_container, new Project-ManagerFragment(), ProjectManagerFragment.TAG)
+                                                                                                                                                                                                                                                                                                                                                                                                                .commit();
+                                                                                                                                                                                                                                                                                                                                                                                                                        }
+                                                                                                                                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                // Métodos originais da classe (mantidos sem alteração).
+                                                                                                                                                                                                                                                                                                                                                                                                                                    @Override
+                                                                                                                                                                                                                                                                                                                                                                                                                                        public void onSaveInstanceState(@NonNull Bundle outState) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                super.onSaveInstanceState(outState);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                        @Override
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            public boolean onKeyShortcut(int keyCode, KeyEvent event) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                    return super.onKeyShortcut(keyCode, event);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                        }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @Override
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                public boolean onKeyDown(int keyCode, KeyEvent event) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        return super.onKeyDown(keyCode, event);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                @Override
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    public boolean onKeyUp(int keyCode, KeyEvent event) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            return super.onKeyUp(keyCode, event);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
