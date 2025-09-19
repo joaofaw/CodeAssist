@@ -15,6 +15,11 @@ on:
                                 uses: actions/checkout@v3
 
                                     - name: Set up JDK 11
+                                    - name: Set up NDK
+                                      uses: nttld/setup-ndk@v1
+                                        with:
+                                            ndk-version: r21e
+                                            
                                           uses: actions/setup-java@v3
                                                 with:
                                                         java-version: '11'
